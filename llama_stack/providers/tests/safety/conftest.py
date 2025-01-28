@@ -79,7 +79,9 @@ def pytest_generate_tests(metafunc):
     if "safety_shield" in metafunc.fixturenames:
         shield_id = metafunc.config.getoption("--safety-shield")
         if shield_id:
-            assert shield_id.startswith("meta-llama/")
+            assert shield_id.startswith("meta-llama/") or shield_id.startswith(
+                "shieldgemma"
+            ), shield_id
             params = [pytest.param(shield_id, id="")]
         else:
             params = SAFETY_SHIELD_PARAMS

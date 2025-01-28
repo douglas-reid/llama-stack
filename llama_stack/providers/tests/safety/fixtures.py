@@ -15,6 +15,7 @@ from llama_stack.distribution.datatypes import Api, Provider
 from llama_stack.providers.inline.safety.llama_guard import LlamaGuardConfig
 from llama_stack.providers.inline.safety.prompt_guard import PromptGuardConfig
 from llama_stack.providers.remote.safety.bedrock import BedrockSafetyConfig
+from llama_stack.providers.remote.safety.shield_gemma import ShieldGemmaConfig
 
 from llama_stack.providers.tests.resolver import construct_stack_for_test
 
@@ -98,7 +99,20 @@ def safety_bedrock() -> ProviderFixture:
     )
 
 
-SAFETY_FIXTURES = ["llama_guard", "bedrock", "remote"]
+@pytest.fixture(scope="session")
+def safety_shield_gemma() -> ProviderFixture:
+    return ProviderFixture(
+        providers=[
+            Provider(
+                provider_id="shield-gemma",
+                provider_type="remote::shield-gemma",
+                config=ShieldGemmaConfig().model_dump(),
+            )
+        ]
+    )
+
+
+SAFETY_FIXTURES = ["llama_guard", "bedrock", "remote", "shield_gemma"]
 
 
 @pytest_asyncio.fixture(scope="session")

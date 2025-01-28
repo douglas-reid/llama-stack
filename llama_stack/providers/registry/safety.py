@@ -70,6 +70,15 @@ Provider `inline::meta-reference` for API `safety` does not work with the latest
         remote_provider_spec(
             api=Api.safety,
             adapter=AdapterSpec(
+                adapter_type="shield-gemma",
+                pip_packages=["ollama"],
+                module="llama_stack.providers.remote.safety.shield_gemma",
+                config_class="llama_stack.providers.remote.safety.shield_gemma.ShieldGemmaConfig",
+            ),
+        ),
+        remote_provider_spec(
+            api=Api.safety,
+            adapter=AdapterSpec(
                 adapter_type="sample",
                 pip_packages=[],
                 module="llama_stack.providers.remote.safety.sample",

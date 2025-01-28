@@ -88,6 +88,8 @@ class ModelRegistryHelper(ModelsProtocolPrivate):
         if provider_resource_id:
             model.provider_resource_id = provider_resource_id
         else:
+            if model.metadata == {} and model.identifier.startswith("shieldgemma"):
+                return model
             if model.metadata.get("llama_model") is None:
                 raise ValueError(
                     f"Model '{model.provider_resource_id}' is not available and no llama_model was specified in metadata. "
